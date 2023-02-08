@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% if user.is_authenticated %}
+        <p>Witaj {{ user }}!</p>
+        <a href="/logout/">Logout</a>
+    {% else %}
+        <a href="/login/">Login</a>
+    {% endif %}
+    <footer>
+        <p>{{ user }}</p>
+    </footer>
+</body>
+</html>
