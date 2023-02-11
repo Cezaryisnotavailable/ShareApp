@@ -3,8 +3,9 @@
 <body>
     {% if user.is_authenticated %}
         <p>Witaj {{ user }}!</p>
-        <p><a href="/groups/">Your groups</a></p>
-        <p><a href="/logout/">Logout</a></p>
+        <p><a href="{% url 'user-groups' %}">Your groups</a></p>
+        <p><a href="{% url 'user-update' pk=user.pk %}">Edit profile</a></p>
+        <p><a href="{% url 'logout' %}">Logout</a></p>
     {% else %}
         <a href="/login/">Login</a>
     {% endif %}

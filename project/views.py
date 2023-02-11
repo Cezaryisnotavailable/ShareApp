@@ -1,6 +1,8 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User, Group
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic.edit import UpdateView
 from django.views.generic.list import ListView
@@ -8,6 +10,7 @@ from django.views.generic.list import ListView
 from .models import CustomGroup, CustomUser
 from project.forms import UserCreateForm, GroupCreateForm, LoginForm
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
@@ -116,8 +119,9 @@ class UsersView(ListView):
     context_object_name = "users"
 
 
-# to be continued
-class CustomUserUpdate(UpdateView):
+# allows to change username and dynamically reverses (reverse_lazy) to the main site
+class CustomUserUpdate(LoginRequiredMixin, UpdateView):
     model = CustomUser
     fields = ["username"]
-    template_name_suffix = "_update_form"
+    template_name = "customuser_update_form.html"
+    success_url = reverse_lazy("main")
