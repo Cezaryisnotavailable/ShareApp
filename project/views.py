@@ -1,7 +1,10 @@
 from django.contrib.auth.models import User, Group
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
+from django.views.generic.edit import UpdateView
+from django.views.generic.list import ListView
+
 from .models import CustomGroup, CustomUser
 from project.forms import UserCreateForm, GroupCreateForm, LoginForm
 from django.contrib.auth import authenticate, login, logout
@@ -40,7 +43,7 @@ class UserCreateView(View):
 
 
             user = CustomUser.objects.create_user(
-                username=data.get('login'),
+                username=data.get('username'),
                 password=data.get('password'),
                 email=data.get('email'),
             )
@@ -53,6 +56,7 @@ class MainView(View):
         return render(request,'main.html')
 
 
+# Opening session
 class LoginView(View):
     def get(self, request):
         form = LoginForm()
@@ -72,26 +76,48 @@ class LoginView(View):
 
             username = data.get('username')
             password = data.get('password')
-
+            print("*"*20)
+            print(username, password)
             # uwierzytelnienie
             user = authenticate(
                 username=username,
                 password=password
             )
-
+            print(user)
             if user:
                 # logowanie
                 login(request, user)
-                return HttpResponse(f"Zalogowano użytkownika {user}.")
+                return redirect("/main/")
             else:
                 return HttpResponse(f"Błąd uwierzytelnienia. Podano nieprawidłowe poświadczenia.")
 
 
+# Closing session
 class LogoutView(View):
     def get(self, request):
 
         logout(request)
-        return render(
-            request,
-            'logout.html'
-        )
+        return redirect("/main/")
+
+#Adding a list of groups to which the CustomUser is assigned
+class UserGroupsView(ListView):
+    model = CustomUser
+    template_name = "groups_list.html"
+    context_object_name = "users"
+    def get_queryset(self):
+        user_groups = CustomUser.objects.filter(username=self.request.user.username) #filter by logged in user
+        # print(user_groups[0].groups.all())
+        return user_groups
+
+#list of users - to be modified to be avaiable only for Admin
+class UsersView(ListView):
+    model = CustomUser
+    template_name = "users_view.html"
+    context_object_name = "users"
+
+
+# to be continued
+class CustomUserUpdate(UpdateView):
+    model = CustomUser
+    fields = ["username"]
+    template_name_suffix = "_update_form"

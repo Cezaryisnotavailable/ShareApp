@@ -1,18 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+{% extends "layout.html" %}
+{%  block content %}
 <body>
     {% if user.is_authenticated %}
         <p>Witaj {{ user }}!</p>
-        <a href="/logout/">Logout</a>
+        <p><a href="/groups/">Your groups</a></p>
+        <p><a href="/logout/">Logout</a></p>
     {% else %}
         <a href="/login/">Login</a>
     {% endif %}
     <footer>
-        <p>{{ user }}</p>
+{#        <p>Current user: {{ user }}</p>#}
+{#        <p><a href="/main/">Home</a></p>#}
     </footer>
-</body>
-</html>
+
+{% endblock %}

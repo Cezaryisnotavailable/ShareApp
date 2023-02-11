@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from project import views
+from project import helpers
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -24,4 +25,8 @@ urlpatterns = [
     path('login/', views.LoginView.as_view()),
     path('logout/', views.LogoutView.as_view()),
     path('main/', views.MainView.as_view()),
+    path('<slug:slug>/update/', views.CustomUserUpdate.as_view()),
+    path('groups/', views.UserGroupsView.as_view()),
+    path('users/', views.UsersView.as_view()),
+    path('test/', helpers.TempUsersView.as_view()),
 ]

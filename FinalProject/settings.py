@@ -129,4 +129,4 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "project.CustomUser"
 
-SILENCED_SYSTEM_CHECKS = ['auth.E003', 'auth.W004']
+

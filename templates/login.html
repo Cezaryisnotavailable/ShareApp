@@ -1,9 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+{% extends "layout.html" %}
+{%  block content %}
 <body>
     <h3>Witaj {{ user }}!</h3>
     <form method="POST">{% csrf_token %}
@@ -11,6 +7,4 @@
         <input type="submit" value="Zaloguj">
     </form>
 
-
-</body>
-</html>
+{% endblock %}

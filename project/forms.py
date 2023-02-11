@@ -12,7 +12,7 @@ class UserCreateForm(forms.Form):
     CHOICES = (
         (group.id, f"{group}") for group in Group.objects.all()
     )
-    login = forms.CharField()
+    username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput)
     password2 = forms.CharField(widget=forms.PasswordInput)
     email = forms.EmailField()
@@ -22,12 +22,16 @@ class UserCreateForm(forms.Form):
     def clean(self):
         cleaned_data = super().clean()
         password = cleaned_data.get('password')
+        print("*" * 20)
+        print(password)
         password2 = cleaned_data.get('password2')
+        print("*" * 20)
+        print(password2)
         if password != password2:
             raise ValidationError("Podane hasła nie są identyczne")
 
     def clean_login(self):
-        user_name = self.cleaned_data.get('login')
+        user_name = self.cleaned_data.get('username')
         user = CustomUser.objects.filter(username=user_name)
         if user:
             raise ValidationError("Podana nazwa użytkownika jest już zarezerwowana")
@@ -35,7 +39,7 @@ class UserCreateForm(forms.Form):
         return user_name
 
 
-# to bedzie raczej
+
 class GroupCreateForm(forms.Form):
     name = forms.CharField()
 
@@ -46,7 +50,7 @@ class GroupCreateForm(forms.Form):
 #         fields = ['username', 'email', 'password1', 'password2']
 
 class LoginForm(forms.Form):
-    username = forms.CharField()
+    username = forms.CharField(label="E-mail")
     password = forms.CharField(widget=forms.PasswordInput)
 
 
