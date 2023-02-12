@@ -27,6 +27,8 @@ urlpatterns = [
     path('main/', views.MainView.as_view(), name="main"),
     path('<int:pk>/update/', views.CustomUserUpdate.as_view(), name="user-update"),
     path('groups/', views.UserGroupsView.as_view(), name="user-groups"),
+    path('group_details/', views.GroupDetailsView.as_view(), name="group-details"),
+    path('<int:pk>/equipment_details/', views.EquipmentDetailView.as_view(), name="equipment-details"),
     path('users/', views.UsersView.as_view()),
     path('test/', helpers.TempUsersView.as_view()),
 ]

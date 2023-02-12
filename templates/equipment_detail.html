@@ -1,0 +1,8 @@
+{% extends "layout.html" %}
+
+{% block content %}
+ <h1>{{ equipment.name }}</h1>
+<p>Category: {{ equipment.get_category_display }}</p>
+<p>Status: {% if equipment.is_available  %} Available {% else %} Not Available {% endif %} </p>
+<p>User: {{ equipment.user }}</p>
+{%  endblock %}

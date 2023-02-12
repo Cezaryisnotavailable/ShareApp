@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{%  block content %}
+
+
+
+
+
+
+
+<p><a href="{% url 'equipment-details' pk=user.pk %}">View equipment</a></p>
+<p><a href="{% url 'user-update' pk=user.pk %}">Share equipment</a></p> {# Dodać tutaj mozliwosc wypozyczenia #}
+
+
+{% endblock %}

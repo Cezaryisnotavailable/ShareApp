@@ -2,14 +2,21 @@
     {% block content %}
     {% if user.is_authenticated %}
      <h1 class="display-4">All Groups</h1>
-            <p class="lead">List of your groups</p>
-            {% for user in users %}
+            <p class="lead">List of your groups and equipment</p>
+            {% for user in users %}{#  ten for niepotrzebny? sprawdzic context #}
+                <h3>Groups</h3>
                 {% for group in user.groups.all %}
 {#                    {% if group.user == user %}#} {# tu już chyba sprawdzenie niepotrzebne? #}
-                            <ul>
-                                <li>{{group}}</li>
-                            </ul>
+                    <ul>
+                        <li><a href="{% url 'group-details' %}">{{group}}</a></li>
+                    </ul>
 {#                {% endif %}#}
+                {% endfor %}
+                <h3>Equipment</h3>
+                {% for equipment in user.equipment_set.all %}
+                    <ul>
+                        <li><a href="{% url 'equipment-details' pk=equipment.pk %}">{{equipment.name}}</a></li>
+                    </ul>
                 {% endfor %}
             {% endfor %}
     {% else %}

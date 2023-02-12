@@ -4,10 +4,11 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic.edit import UpdateView
+from django.views.generic import DetailView
+from django.views.generic.edit import UpdateView, CreateView
 from django.views.generic.list import ListView
 
-from .models import CustomGroup, CustomUser
+from .models import CustomGroup, CustomUser, Equipment
 from project.forms import UserCreateForm, GroupCreateForm, LoginForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -125,3 +126,19 @@ class CustomUserUpdate(LoginRequiredMixin, UpdateView):
     fields = ["username"]
     template_name = "customuser_update_form.html"
     success_url = reverse_lazy("main")
+
+
+class EquipmentCreate(CreateView):
+    model = Equipment
+    fields = ['__all__']
+    success_url = reverse_lazy("main")
+
+
+class EquipmentDetailView(LoginRequiredMixin, DetailView):
+    model = Equipment
+    template_name = 'equipment_detail.html'
+    context_object_name = 'equipment'
+
+
+class GroupDetailsView(LoginRequiredMixin, DetailView):
+    pass
