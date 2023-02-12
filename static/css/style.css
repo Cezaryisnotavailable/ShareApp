@@ -1,0 +1,11 @@
+/*making fancy style*/
+.you {
+  display: inline-block;
+  font-size: 20px;
+  font-weight: bold;
+  color: #4CAF50;
+  background-color: #f2f2f2;
+  padding: 8px 16px;
+  border-radius: 8px;
+  margin-left: 16px;
+}

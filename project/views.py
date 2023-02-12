@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import DetailView
+from django.views.generic import DetailView, TemplateView
 from django.views.generic.edit import UpdateView, CreateView
 from django.views.generic.list import ListView
 
@@ -142,3 +142,27 @@ class EquipmentDetailView(LoginRequiredMixin, DetailView):
 
 class GroupDetailsView(LoginRequiredMixin, DetailView):
     pass
+
+
+# class UserInSameGroupListView(LoginRequiredMixin, ListView):
+#     model = CustomUser
+#     template_name = 'users_in_same_group.html'
+#     context_object_name = 'users'
+#
+#     def get_queryset(self):
+#         user = self.request.user
+#         group_ids = user.groups.values_list("id", flat=True)
+#         return CustomUser.objects.filter(groups__id__in=group_ids).exclude(id=user.id)
+
+
+# Showing users in the same group regardless of other groups to which given user may be assigned to
+class UsersInSameGroupView(TemplateView):
+    template_name = 'users_in_same_group.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        group_id = self.kwargs.get('group_id')
+        group = Group.objects.get(pk=group_id)
+        context['group_name'] = group.name
+        context['users'] = group.user_set.all()
+        return context

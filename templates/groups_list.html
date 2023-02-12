@@ -8,7 +8,7 @@
                 {% for group in user.groups.all %}
 {#                    {% if group.user == user %}#} {# tu już chyba sprawdzenie niepotrzebne? #}
                     <ul>
-                        <li><a href="{% url 'group-details' %}">{{group}}</a></li>
+                        <li><a href="{% url 'users_in_same_group' group_id=group.pk%}">{{group}}</a></li>
                     </ul>
 {#                {% endif %}#}
                 {% endfor %}
