@@ -42,13 +42,13 @@ class CustomUser(AbstractUser):
 
 
 
-class CustomGroup(Group):
-
-    def create_group(self, name, **extra_fields):
-        if not name:
-            raise ValueError("The given name must be set")
-        group = Group.objects.create(name=name, **extra_fields)
-        return group
+# class CustomGroup(Group):
+#
+#     def create_group(self, name, **extra_fields):
+#         if not name:
+#             raise ValueError("The given name must be set")
+#         group = Group.objects.create(name=name, **extra_fields)
+#         return group
 
 
 class Equipment(models.Model):

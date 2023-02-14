@@ -20,9 +20,9 @@ from project import helpers
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path('add_user/', views.UserCreateView.as_view()),
+    path('add_user/', views.UserCreateView.as_view(), name="create-user"),
     path('add_group/', views.GroupCreateView.as_view()),
-    path('login/', views.LoginView.as_view()),
+    path('login/', views.LoginView.as_view(), name="login"),
     path('logout/', views.LogoutView.as_view(), name='logout'),
     path('main/', views.MainView.as_view(), name="main"),
     path('<int:pk>/update/', views.CustomUserUpdate.as_view(), name="user-update"),

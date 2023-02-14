@@ -5,7 +5,7 @@ from django.views import View
 from django.views.generic.edit import UpdateView
 from django.views.generic.list import ListView
 
-from .models import CustomGroup, CustomUser
+from .models import CustomUser
 from project.forms import UserCreateForm, GroupCreateForm, LoginForm
 from django.contrib.auth import authenticate, login, logout
 

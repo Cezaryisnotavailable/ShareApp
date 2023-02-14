@@ -8,7 +8,7 @@ from django.views.generic import DetailView, TemplateView
 from django.views.generic.edit import UpdateView, CreateView
 from django.views.generic.list import ListView
 
-from .models import CustomGroup, CustomUser, Equipment
+from .models import CustomUser, Equipment
 from project.forms import UserCreateForm, GroupCreateForm, LoginForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
