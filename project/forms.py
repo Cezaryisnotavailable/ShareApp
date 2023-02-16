@@ -9,6 +9,9 @@ from project.models import CustomUser
 
 # creating user with assignment to a pre-created group
 class UserCreateForm(forms.Form):
+    """
+    A form used for creating a user with assignment to a pre-created group by admin.
+    """
     CHOICES = (
         (group.id, f"{group}") for group in Group.objects.all()
     )
@@ -20,6 +23,10 @@ class UserCreateForm(forms.Form):
     group = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect)
 
     def clean(self):
+        """
+        Validates the password fields to ensure they match.
+        :return:
+        """
         cleaned_data = super().clean()
         password = cleaned_data.get('password')
         print("*" * 20)
@@ -31,6 +38,10 @@ class UserCreateForm(forms.Form):
             raise ValidationError("Podane hasła nie są identyczne")
 
     def clean_login(self):
+        """
+        Validates that the entered username is not already taken.
+        :return:
+        """
         user_name = self.cleaned_data.get('username')
         user = CustomUser.objects.filter(username=user_name)
         if user:
@@ -41,6 +52,9 @@ class UserCreateForm(forms.Form):
 
 
 class GroupCreateForm(forms.Form):
+    """
+    A form used for creating a new group.
+    """
     name = forms.CharField()
 
 
@@ -50,6 +64,9 @@ class GroupCreateForm(forms.Form):
 #         fields = ['username', 'email', 'password1', 'password2']
 
 class LoginForm(forms.Form):
+    """
+    A form used for logging in a user.
+    """
     username = forms.CharField(label="E-mail")
     password = forms.CharField(widget=forms.PasswordInput)
 

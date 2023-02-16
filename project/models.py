@@ -18,6 +18,9 @@ CATEGORIES = (
 #     group = models.OneToOneField("Group")
 
 class CustomUser(AbstractUser):
+    """
+    Custom user model extending Django's built-in `AbstractUser`.
+    """
     username_validator = UnicodeUsernameValidator()
 
     username = models.CharField(
@@ -34,7 +37,7 @@ class CustomUser(AbstractUser):
     )
     email = models.EmailField(_("email address"), unique=True)
 
-    USERNAME_FIELD = 'email' #zakladnie kont przez email dla weryfikacji
+    USERNAME_FIELD = 'email' # Default username field for authentication
     REQUIRED_FIELDS = ['username']
 
     def get_absolute_url(self):
@@ -52,6 +55,10 @@ class CustomUser(AbstractUser):
 
 
 class Equipment(models.Model):
+    """
+    Equipment model representing various types of equipment.
+    """
+
     name = models.CharField(max_length=150)
     category = models.IntegerField(choices=CATEGORIES)
     is_available = models.BooleanField(default=True)

@@ -18,6 +18,9 @@ from django.contrib.auth.decorators import login_required
 
 # adding possibility to add group
 class GroupCreateView(View):
+    """
+     A view that handles creating a new group. (Group can be created only by admin - to be implemented)
+    """
     def get(self, request):
         form = GroupCreateForm()
         return render(request, "create_group.html", {"form": form})
@@ -32,6 +35,10 @@ class GroupCreateView(View):
 
 # adding possibility to add user
 class UserCreateView(View):
+    """
+    A view that handles requests to display and process a form for creating a new user with the option to assign them to
+     a pre-existing group.
+    """
     def get(self, request):
         form = UserCreateForm()
         return render(request, "create_user.html", {"form": form})
@@ -56,12 +63,18 @@ class UserCreateView(View):
 
 
 class MainView(View):
+    """
+     A simple view that displays the main page of the website.
+    """
     def get(self, request):
         return render(request,'main.html')
 
 
 # Opening session
 class LoginView(View):
+    """
+    A view that displays a login form and handles user authentication.
+    """
     def get(self, request):
         form = LoginForm()
         return render(
@@ -98,6 +111,9 @@ class LoginView(View):
 
 # Closing session
 class LogoutView(View):
+    """
+    A view that logs out the current user.
+    """
     def get(self, request):
 
         logout(request)
@@ -105,6 +121,9 @@ class LogoutView(View):
 
 #Adding a list of groups to which the CustomUser is assigned
 class UserGroupsView(ListView):
+    """
+    A view that displays a list of groups to which the logged-in user is assigned
+    """
     model = CustomUser
     template_name = "groups_list.html"
     context_object_name = "users"
@@ -115,6 +134,9 @@ class UserGroupsView(ListView):
 
 #list of users - to be modified to be avaiable only for Admin
 class UsersView(ListView):
+    """
+    A view that displays a list of all users (should be restricted to admin users only - to be implemented).
+    """
     model = CustomUser
     template_name = "users_view.html"
     context_object_name = "users"
@@ -129,18 +151,27 @@ class CustomUserUpdate(LoginRequiredMixin, UpdateView):
 
 
 class EquipmentCreate(CreateView):
+    """
+    A view that handles creating new equipment objects.
+    """
     model = Equipment
     fields = ['__all__']
     success_url = reverse_lazy("main")
 
 
 class EquipmentDetailView(LoginRequiredMixin, DetailView):
+    """
+    A view that displays the details of a specific equipment object
+    """
     model = Equipment
     template_name = 'equipment_detail.html'
     context_object_name = 'equipment'
 
 
 class GroupDetailsView(LoginRequiredMixin, DetailView):
+    """
+    A view that displays the details of a specific group.
+    """
     pass
 
 
@@ -155,8 +186,11 @@ class GroupDetailsView(LoginRequiredMixin, DetailView):
 #         return CustomUser.objects.filter(groups__id__in=group_ids).exclude(id=user.id)
 
 
-# Showing users in the same group regardless of other groups to which given user may be assigned to
+# Showing users in the same group regardless of other groups to which the given user may be assigned
 class UsersInSameGroupView(TemplateView):
+    """
+     A view that displays a list of users who belong to the same group as the specified group ID.
+    """
     template_name = 'users_in_same_group.html'
 
     def get_context_data(self, **kwargs):
