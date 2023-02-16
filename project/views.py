@@ -150,13 +150,23 @@ class CustomUserUpdate(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy("main")
 
 
-class EquipmentCreate(CreateView):
+class EquipmentCreate(LoginRequiredMixin, CreateView):
     """
     A view that handles creating new equipment objects.
     """
     model = Equipment
-    fields = ['__all__']
-    success_url = reverse_lazy("main")
+    fields = ['name', 'category', 'is_available']
+    template_name = "equipment_form.html"
+    success_url = reverse_lazy("user-groups")
+
+    def form_valid(self, form):
+        """
+        the user field of the new Equipment instance will be set to the currently logged-in user
+        :param form:
+        :return:
+        """
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
 
 class EquipmentDetailView(LoginRequiredMixin, DetailView):

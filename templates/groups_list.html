@@ -18,7 +18,9 @@
                         <li><a href="{% url 'equipment-details' pk=equipment.pk %}">{{equipment.name}}</a></li>
                     </ul>
                 {% endfor %}
+                <li><a href="{% url 'create-equipment' %}">Add new equipment</a></li>
             {% endfor %}
+
     {% else %}
         <p>You're not logged in</p>
     {% endif %}

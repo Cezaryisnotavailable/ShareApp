@@ -33,4 +33,5 @@ urlpatterns = [
     path('test/', helpers.TempUsersView.as_view()),
     # path('users-in-same-group/<int:group_id>/', views.UserInSameGroupListView.as_view(), name='users_in_same_group'),
     path('groups/<int:group_id>/users/', views.UsersInSameGroupView.as_view(), name='users_in_same_group'),
+    path('create-equipment/', views.EquipmentCreate.as_view(), name='create-equipment'),
 ]
