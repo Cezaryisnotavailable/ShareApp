@@ -27,13 +27,13 @@ def test_user_create_view(client):
         'password': 'testpassword',
         'password2': 'testpassword',
         'email': 'testuser@example.com',
-        'group': "Grupa1",
+        'group': 2,
     }
     # form = UserCreateForm(data=data)
     # assert form.is_valid()
 
     response = client.post(reverse("create-user"), data=data)
-    assert response.status_code == 200
+    assert response.status_code == 302
     print(f"test drugi")
 
     user = CustomUser.objects.get(email='testuser@example.com')

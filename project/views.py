@@ -45,6 +45,8 @@ class UserCreateView(View):
 
     def post(self, request):
         form = UserCreateForm(request.POST)
+        print("*" * 20)
+        print(form.errors) # bledy walidacji z formularza
         if form.is_valid():
             data = form.cleaned_data
 

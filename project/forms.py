@@ -13,7 +13,7 @@ class UserCreateForm(forms.Form):
     A form used for creating a user with assignment to a pre-created group by admin.
     """
     CHOICES = (
-        (group.id, f"{group}") for group in Group.objects.all()
+        (group.id, f"{group}") for group in Group.objects.all() # w widoku sprawdzic
     )
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput)
@@ -29,7 +29,7 @@ class UserCreateForm(forms.Form):
         """
         cleaned_data = super().clean()
         password = cleaned_data.get('password')
-        print("*" * 20)
+        print("*" * 20) # w finalnym kodzie usunac
         print(password)
         password2 = cleaned_data.get('password2')
         print("*" * 20)

@@ -1,10 +1,8 @@
-
 from django.contrib.auth.models import User, Group, AbstractUser, Permission
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
-
 
 CATEGORIES = (
     (1, "Cars"),
@@ -13,6 +11,8 @@ CATEGORIES = (
     (4, "AGD"),
     (5, "Coworking office")
 )
+
+
 #
 # class AddGroupInfo(models.Model):
 #     group = models.OneToOneField("Group")
@@ -37,12 +37,11 @@ class CustomUser(AbstractUser):
     )
     email = models.EmailField(_("email address"), unique=True)
 
-    USERNAME_FIELD = 'email' # Default username field for authentication
+    USERNAME_FIELD = 'email'  # Default username field for authentication
     REQUIRED_FIELDS = ['username']
 
     def get_absolute_url(self):
         return reverse('user-update', args=[str(self.pk)])
-
 
 
 # class CustomGroup(Group):
