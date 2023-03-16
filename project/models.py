@@ -17,6 +17,16 @@ CATEGORIES = (
 # class AddGroupInfo(models.Model):
 #     group = models.OneToOneField("Group")
 
+class Category(models.Model):
+    name = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name_plural = "Categories"
+
+
 class CustomUser(AbstractUser):
     """
     Custom user model extending Django's built-in `AbstractUser`.
@@ -59,6 +69,6 @@ class Equipment(models.Model):
     """
 
     name = models.CharField(max_length=150)
-    category = models.IntegerField(choices=CATEGORIES)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="equipments")
     is_available = models.BooleanField(default=True)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
